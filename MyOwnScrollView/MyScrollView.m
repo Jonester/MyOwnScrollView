@@ -31,7 +31,7 @@
     [self.baseView addSubview:blueView];
     [self.baseView addSubview:self.yellowView];
     
-    self.maxHeight = self.bounds.size.height + self.yellowView.bounds.size.height + (self.yellowView.frame.origin.y - self.bounds.size.height);
+    self.maxHeight = (self.bounds.size.height + self.yellowView.bounds.size.height + (self.yellowView.frame.origin.y - self.bounds.size.height) - self.frame.size.height);
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanned:)];
     [self addGestureRecognizer:panGesture];
@@ -44,7 +44,7 @@
 -(void)viewPanned:(UIPanGestureRecognizer*)sender {
    
     CGPoint point = [sender translationInView:self];
-    float maxScrollHeight =  (self.maxHeight - self.frame.size.height) * - 1;
+    float maxScrollHeight =  -self.maxHeight;
     CGFloat newYPoint =  self.bounds.origin.y + point.y;
     
     if ((newYPoint > maxScrollHeight) && (newYPoint <= 0) ) {
